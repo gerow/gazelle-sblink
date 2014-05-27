@@ -1,4 +1,4 @@
-gazelle-sblink allows you to easily instruct a seedbox to download a torrent from the gazelle interface
+gazelle-sblink allows you to easily instruct a seedbox to download a torrent from a gazelle tracker by inserting a link into the tracker page itself.
 
 Currently the goal is to get it working with Transmission using it's RPC interface: https://trac.transmissionbt.com/browser/branches/1.7x/doc/rpc-spec.txt
 
