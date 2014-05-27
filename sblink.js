@@ -20,9 +20,38 @@
       $new_anchor.click(function(event) {
         event.preventDefault();
         $(this).html(chrome.extension.getURL("throbber.gif"));
-        $img = $(document.createElement("img"));
-        $img.attr("src", chrome.extension.getURL("throbber.gif"));
-        $(this).html($img);
+        $throbber = $(document.createElement("img"));
+        $throbber.attr("src", chrome.extension.getURL("throbber.gif"));
+        $(this).html($throbber);
+        request_obj = {
+          method: "torrent-add",
+          arguments: {
+            filename: url
+          }
+        };
+        // kinda hacky... but we need to get a session id first
+        $.post("http://bt.cshaus.com/transmission/rpc").always(function(xhr) {
+          session_id = xhr.getResponseHeader("X-Transmission-Session-Id");
+          console.log("got session id:");
+          console.log(session_id);
+          $.ajax({
+            url: "http://bt.cshaus.com/transmission/rpc",
+            data: JSON.stringify(request_obj),
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            headers: {
+                "X-Transmission-Session-Id": session_id
+            }
+          }).fail(function(data) {
+            console.log(data);
+          }).success(function(data) {
+            console.log("it worked!");
+            console.log(data);
+          }).always(function(xhr) {
+            console.log("always!?");
+            console.log(xhr);
+          });
+        });
       });
     });
   });

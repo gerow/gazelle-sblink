@@ -9,7 +9,8 @@
   "permissions": [
     "https://what.cd/",
     "https://tls.passthepopcorn.me/",
-    "https://animebytes.tv/"
+    "https://animebytes.tv/",
+    "http://bt.cshaus.com/"
   ],
 
   "content_scripts": [
