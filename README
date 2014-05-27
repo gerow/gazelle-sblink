@@ -1,0 +1,7 @@
+gazelle-sblink allows you to easily instruct a seedbox to download a torrent from the gazelle interface
+
+Currently the goal is to get it working with Transmission using it's RPC interface: https://trac.transmissionbt.com/browser/branches/1.7x/doc/rpc-spec.txt
+
+Basic functionality is to have a button next to the [DL] button (like [SB]) that executes some javascript to instruct a Transmission server to fetch the torrent file and begin downloading it.
+
+Fancier functionality might include fetching information about a torrent by url and potentially being able to see if the seedbox already has the torrent and what kind of progress it has made.
