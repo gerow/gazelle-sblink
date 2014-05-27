@@ -20,6 +20,8 @@
     }
   ],
   "web_accessible_resources": [
-    "throbber.gif"
+    "throbber.gif",
+    "check32.png",
+    "stop32.png"
   ]
 }

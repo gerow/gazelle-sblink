@@ -7,6 +7,8 @@
     return url;
   }
 
+  var transmission_session_id = "";
+
   $(document).ready(function() {
     $("tr.group_torrent>td>span>a[href*=torrents\\.php\\?action\\=download]").each(function() {
       $this = $(this);
@@ -23,35 +25,40 @@
         $throbber = $(document.createElement("img"));
         $throbber.attr("src", chrome.extension.getURL("throbber.gif"));
         $(this).html($throbber);
+        $anchor = $(this);
         request_obj = {
           method: "torrent-add",
           arguments: {
             filename: url
           }
         };
-        // kinda hacky... but we need to get a session id first
-        $.post("http://bt.cshaus.com/transmission/rpc").always(function(xhr) {
-          session_id = xhr.getResponseHeader("X-Transmission-Session-Id");
-          console.log("got session id:");
-          console.log(session_id);
-          $.ajax({
-            url: "http://bt.cshaus.com/transmission/rpc",
-            data: JSON.stringify(request_obj),
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            headers: {
-                "X-Transmission-Session-Id": session_id
-            }
-          }).fail(function(data) {
-            console.log(data);
-          }).success(function(data) {
-            console.log("it worked!");
-            console.log(data);
-          }).always(function(xhr) {
-            console.log("always!?");
-            console.log(xhr);
-          });
-        });
+        var retries = 4;
+        var fail_fxn = function(xhr) {
+          retries--;
+          if (retries <= 0) {
+            $fail_icon = $(document.createElement("img"));
+            $fail_icon.attr("src", chrome.extension.getURL("stop32.png"));
+            $anchor.html($fail_icon);
+            return;
+          }
+          transmission_session_id = xhr.getResponseHeader("X-Transmission-Session-Id");
+          this.headers["X-Transmission-Session-Id"] = transmission_session_id;
+          $.ajax(this).fail(fail_fxn);
+        }
+        $.ajax({
+          url: "http://bt.cshaus.com/transmission/rpc",
+          data: JSON.stringify(request_obj),
+          contentType: "application/json; charset=utf-8",
+          type: "POST",
+          headers: {
+            "X-Transmission-Session-Id": transmission_session_id
+          },
+          success: function(data) {
+            $success_icon = $(document.createElement("img"));
+            $success_icon.attr("src", chrome.extension.getURL("check32.png"));
+            $anchor.html($success_icon);
+          },
+        }).fail(fail_fxn);
       });
     });
   });
