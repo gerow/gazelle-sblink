@@ -37,7 +37,7 @@
           retries--;
           if (retries <= 0) {
             $fail_icon = $(document.createElement("img"));
-            $fail_icon.attr("src", chrome.extension.getURL("stop32.png"));
+            $fail_icon.attr("src", chrome.extension.getURL("stop16.png"));
             $anchor.html($fail_icon);
             return;
           }
@@ -55,7 +55,7 @@
           },
           success: function(data) {
             $success_icon = $(document.createElement("img"));
-            $success_icon.attr("src", chrome.extension.getURL("check32.png"));
+            $success_icon.attr("src", chrome.extension.getURL("check16.png"));
             $anchor.html($success_icon);
           },
         }).fail(fail_fxn);

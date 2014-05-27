@@ -21,7 +21,7 @@
   ],
   "web_accessible_resources": [
     "throbber.gif",
-    "check32.png",
-    "stop32.png"
+    "check16.png",
+    "stop16.png"
   ]
 }
