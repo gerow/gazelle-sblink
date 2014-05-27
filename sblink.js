@@ -10,7 +10,7 @@
   var transmission_session_id = "";
 
   $(document).ready(function() {
-    $("tr.group_torrent>td>span>a[href*=torrents\\.php\\?action\\=download]").each(function() {
+    var mod_fxn = function() {
       $this = $(this);
       href = $this.attr("href");
       url = qualifyURL(href);
@@ -60,6 +60,10 @@
           },
         }).fail(fail_fxn);
       });
-    });
+    };
+
+    $("tr.group_torrent>td>span>a[href*=torrents]").each(mod_fxn);
+    // hack to make it work with animebyt.es
+    $("tr.group_torrent>td>span>span>a[href*=torrents2]").each(mod_fxn);
   });
 })();
