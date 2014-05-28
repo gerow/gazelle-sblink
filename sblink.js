@@ -1,8 +1,10 @@
 (function() {
+  var sb_rpc_path = "http://bt.cshaus.com/transmission/rpc";
+
   function qualifyURL(url) {
     var img = document.createElement('img');
     img.src = url; // set string url
-    url = img.src; // get qualified url
+    var url = img.src; // get qualified url
     img.src = null; // no server request
     return url;
   }
@@ -12,9 +14,8 @@
   $(document).ready(function() {
     var mod_fxn = function() {
       $this = $(this);
-      href = $this.attr("href");
-      url = qualifyURL(href);
-      //$new_anchor = $("<a href=\"http://bt.cshaus.com/\">SB</a>");
+      var href = $this.attr("href");
+      var url = qualifyURL(href);
       $new_anchor = $(document.createElement("a"));
       $new_anchor.attr("href", "#");
       $new_anchor.html("SB");
@@ -46,7 +47,7 @@
           $.ajax(this).fail(fail_fxn);
         }
         $.ajax({
-          url: "http://bt.cshaus.com/transmission/rpc",
+          url: sb_rpc_path,
           data: JSON.stringify(request_obj),
           contentType: "application/json; charset=utf-8",
           type: "POST",
@@ -62,8 +63,9 @@
       });
     };
 
-    $("tr.group_torrent>td>span>a[href*=torrents]").each(mod_fxn);
+    $("tr.group_torrent>td>span>a[href*=torrents\\.php\\?action\\=download]").each(mod_fxn);
     // hack to make it work with animebyt.es
-    $("tr.group_torrent>td>span>span>a[href*=torrents2]").each(mod_fxn);
+    $("tr.group_torrent>td>span>span>a[href*=torrents2\\.php]").each(mod_fxn);
+    $("tr.group_torrent>td>span>a[href*=torrents2\\.php]").each(mod_fxn);
   });
 })();
