@@ -4,18 +4,18 @@
   "name": "gazelle-sblink",
   "description": "This extension allows you to easily download files on a seedbox from a gazelle tracker site.",
 
-  "version": "1.0",
+  "version": "1.0.1",
 
   "permissions": [
-    "https://what.cd/",
-    "https://tls.passthepopcorn.me/",
-    "https://animebytes.tv/",
-    "http://bt.cshaus.com/"
   ],
 
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
+      "matches": [
+        "https://what.cd/*",
+        "https://tls.passthepopcorn.me/*",
+        "https://animebytes.tv/*"
+      ],
       "js": ["jquery.js", "sblink.js"]
     }
   ],
@@ -23,5 +23,6 @@
     "throbber.gif",
     "check16.png",
     "stop16.png"
-  ]
+  ],
+  "options_page": "options.html"
 }
