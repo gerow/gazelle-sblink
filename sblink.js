@@ -11,8 +11,6 @@
     return url;
   }
 
-  var transmission_session_id = "";
-
   $(document).ready(function() {
     var mod_f = function() {
       var $this = $(this);
