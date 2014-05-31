@@ -7,7 +7,12 @@
   "version": "1.0.1",
 
   "permissions": [
-    "http://bt.cshaus.com/transmission/rpc"
+    "storage"
+  ],
+
+  "optional_permissions": [
+    "http://*/",
+    "https://*/"
   ],
 
   "content_scripts": [
