@@ -1,8 +1,4 @@
 (function() {
-  var sb_rpc_path = "http://bt.cshaus.com/transmission/rpc";
-
-  client = new transmission.Client(sb_rpc_path);
-
   function qualifyURL(url) {
     var img = document.createElement('img');
     img.src = url; // set string url
@@ -11,7 +7,8 @@
     return url;
   }
 
-  $(document).ready(function() {
+  function sblink(sb_url) {
+    client = new transmission.Client(sb_url);
     var mod_f = function() {
       var $this = $(this);
       var href = $this.attr("href");
@@ -59,5 +56,16 @@
     // hack to make it work with animebyt.es
     $("tr.group_torrent>td>span>span>a[href*=torrents2\\.php]").each(mod_f);
     $("tr.group_torrent>td>span>a[href*=torrents2\\.php]").each(mod_f);
+  
+  }
+
+  $(document).ready(function() {
+    chrome.storage.sync.get({
+      transmission_url: ""
+    }, function(items) {
+      if (items.transmission_url != "") {
+        sblink(items.transmission_url);
+      }
+    });
   });
 })();
