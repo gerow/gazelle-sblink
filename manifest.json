@@ -4,7 +4,7 @@
   "name": "gazelle-sblink",
   "description": "This extension allows you to easily download files on a seedbox from a gazelle tracker site.",
 
-  "version": "1.0.1",
+  "version": "1.0.2",
 
   "permissions": [
     "storage"
